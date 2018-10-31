@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+        <meta charset="utf-8" />
+        <title>endogi.info</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">endogi.info </a></h1>
+                <nav><ul>
+                    <li><a href="/category/misc.html">misc</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/detafen-xi-huan-jing-rpython.html">データ分析環境  R+python</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2018-10-31T00:00:00+09:00">
+                Published: Wed 31 October 2018
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/endogi.html">endogi</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+
+</footer><!-- /.post-info --><ul>
+<li>統計解析については R &gt;&gt; Python</li>
+<li>その他についてはPython &gt;&gt; R言語</li>
+<li>Jupyter notebook で PythonとRを組み合わせて使うスタイルがおすすめ</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>R</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>環境</td>
+<td>RStudio, jupyter</td>
+<td>jupyter, etc</td>
+</tr>
+<tr>
+<td>データ整形</td>
+<td>dplyr(tidyverse)</td>
+<td>pandas</td>
+</tr>
+<tr>
+<td>統計</td>
+<td>いろいろ</td>
+<td>scipy.stats, statsmodels</td>
+</tr>
+<tr>
+<td>グラフ</td>
+<td>ggplot2</td>
+<td>seaborn, plotnine(ggplot-like)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rの特徴</strong></p>
+<ul>
+<li>tidyverse(dplyr, ggplot)の使い勝手がよい</li>
+<li>統計パッケージは充実しておりドキュメント,本も豊富</li>
+<li>それ以外の言語機能、パッケージについてはpythonより数段おちる？特に文字列処理など？</li>
+<li>そもそもR言語の設計いまいち感を感じる。</li>
+</ul>
+<p><strong>Pythonの特徴</strong></p>
+<ul>
+<li>文字列処理しやすい. 前処理に向いている.</li>
+<li>グラフライブラリ seabornが有名だけど、ggplotと比較するとかなり使い方に癖がある.</li>
+<li>通常の統計解析はRより数段おとる</li>
+</ul>
+<h2>Jupyter notebook環境構築</h2>
+<p>手元の環境が汚れるのがいやなので、Dockerを使っている.</p>
+<p><a href="https://github.com/jupyter/docker-stacks/">https://github.com/jupyter/docker-stacks/</a> をベースに必要なパッケージを追加している</p>
+<p>official/Dockerfile</p>
+<div class="highlight"><pre><span></span>FROM jupyter/datascience-notebook
+
+USER root
+
+# .ipython/profile_default/startup/01-startup.ipy でデフォルトでロードされるモジュールを定義
+ADD 01-startup.ipy /home/jovyan/.ipython/profile_default/startup/
+RUN chown jovyan:users -R /home/jovyan/.ipython
+
+RUN apt-get update &amp;&amp; \
+    apt-get install -y --no-install-recommends \
+         fonts-ipafont graphviz libgraphviz-dev graphviz-dev pkg-config -y --no-install-recommends &amp;&amp; \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip install --upgrade pip
+
+USER $NB_UID
+
+# Jupyter notebook extensions &lt;https://github.com/ipython-contrib/jupyter_contrib_nbextensions&gt; の設定
+RUN pip install jupyter_contrib_nbextensions
+RUN jupyter contrib nbextension install --user
+
+RUN pip install tensorflow==1.10.0 numpy==1.14.5 pandas
+RUN pip install openpyxl pymc3 plotnine pyarrow opencv-python keras plydata networkx --upgrade
+RUN pip install sympy
+RUN pip install scikit-misc graphviz
+RUN pip install redis
+RUN pip install xlsxwriter
+RUN pip install flask flask-wtf flask-bootstrap
+
+# fontList.jsonを消しておくと、フォント変更後にmatplotlib.font_manager._rebuild() する必要がない。&lt;https://qiita.com/yniji/items/3fac25c2ffa316990d0c&gt;
+RUN rm .cache/matplotlib/fontList.json
+
+RUN jupyter nbextension enable tox2/main
+RUN jupyter nbextension enable nbextensions_configurator/tree_tab/main
+</pre></div>
+
+
+<p>.ipython/profile_default/startup/01-startup.ipy</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="kn">as</span> <span class="nn">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pylab</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="kn">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="kn">import</span> <span class="n">r</span> <span class="k">as</span> <span class="n">R</span>
+<span class="o">%</span><span class="n">load_ext</span> <span class="n">rpy2</span><span class="o">.</span><span class="n">ipython</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+
+
+<p>docker-compose.yml</p>
+<div class="highlight"><pre><span></span>version: &#39;2.3&#39;
+services:
+  official:
+    restart: always
+    build: official/.
+    container_name: myjupyter
+    ports:
+       - &quot;8888:8888&quot;
+       - &quot;5000:5000&quot;
+    volumes:
+       - ~/projects/myjupyter:/home/jovyan/myjupyter
+       - ~/.keras:/home/jovyan/.keras
+    command: &quot;start-notebook.sh --NotebookApp.token=&#39;&#39;&quot;
+    links:
+      - redis
+
+  redis:
+    restart: always
+    image: redis
+    volumes:
+      - ~/tmp/redis:/data
+    command: redis-server --appendonly yes
+</pre></div>
+
+
+<p>一時ファイルのキャッシュとしてredisを使うのでdocker-composeで一括管理している</p>
+<h2>データ解析の基本的な流れ</h2>
+<ul>
+<li>pythonで<ul>
+<li>excel, csvのロードと匿名化</li>
+<li>前処置</li>
+<li>適宜、DataFrameはpickleしlocalのredisにセーブしておく</li>
+</ul>
+</li>
+<li>jupyter notebookで<ul>
+<li>rpy2をつかってRとpythonで相互にデータやりとりできる</li>
+<li>データ整形、集計 (pandas, dplyr)</li>
+<li>グラフ(plotnine, ggplot2)</li>
+<li>統計解析</li>
+</ul>
+</li>
+</ul>
+<h2>Rpy2</h2>
+<p>RをIPython Notebookから使う<a href="https://oku.edu.mie-u.ac.jp/~okumura/stat/ipynb.html">https://oku.edu.mie-u.ac.jp/~okumura/stat/ipynb.html</a></p>
+<p>Jupyterで1つのノートブック内にRとPythonを共存させる <a href="https://qiita.com/tanakarian/items/609b550c4b18e5a4b925">https://qiita.com/tanakarian/items/609b550c4b18e5a4b925</a></p>
+<p>上記とおり、"%R -i", "%R -o", "%%R" だけで相互にデータやりとりできる</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
