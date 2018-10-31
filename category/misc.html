@@ -23,7 +23,7 @@
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
     <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
     <link href="/theme/css/pygments/native.css" rel="stylesheet">
@@ -69,7 +69,7 @@ endogi.info            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
-                <h2><a href="/cao-zuo-bian-shu-fa.html">操作変数法</a></h2>
+              <h1></i><a href="/cao-zuo-bian-shu-fa.html">操作変数法</a></h1>
                     <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
@@ -93,7 +93,13 @@ $$</div>
 <p>ここで、εは誤差、α、β、γは回帰係数。βがYに対するXの影響を示す求めたい回帰係数となる。
 しかし交絡Cが入手できない状況では、Cを除いた単純な回帰を行うとバイアスがかかってしまう</p>
 <div class="math">$$
-Y = \alpha_u + \beta_u X + \epsilon …</div><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+Y = \alpha_u + \beta_u X + \epsilon
+$$</div>
+<p>
+この単回帰の係数<span class="math">\(\beta_u\)</span>は公式から
+</p>
+<div class="math">$$
+\beta_u = \frac …</div><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
         linebreak = "false";
@@ -153,7 +159,7 @@ Y = \alpha_u + \beta_u X + \epsilon …</div><script type='text/javascript'>if (
             </article>
             <hr style='padding-bottom:5em;' />
             <article>
-                <h2><a href="/jupyterdegraphvizwoshi-tsutagurahunobiao-shi.html">Jupyterでgraphvizを使ったグラフの表示</a></h2>
+              <h1></i><a href="/jupyterdegraphvizwoshi-tsutagurahunobiao-shi.html">Jupyterでgraphvizを使ったグラフの表示</a></h1>
                     <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
@@ -173,13 +179,14 @@ Y = \alpha_u + \beta_u X + \epsilon …</div><script type='text/javascript'>if (
 
 <span class="k">def</span> <span class="nf">view_dot</span><span class="p">(</span><span class="n">dot_text</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">dname</span><span class="p">:</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dname …</span></pre></div>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dname</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">gv</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_text …</span></pre></div>
                     <a class="btn btn-default btn-xs" href="/jupyterdegraphvizwoshi-tsutagurahunobiao-shi.html">more ...</a>
                 </div>
             </article>
             <hr style='padding-bottom:5em;' />
             <article>
-                <h2><a href="/detafen-xi-huan-jing-rpython.html">データ分析環境  R+python</a></h2>
+              <h1></i><a href="/detafen-xi-huan-jing-rpython.html">データ分析環境  R+python</a></h1>
                     <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
@@ -198,7 +205,7 @@ Y = \alpha_u + \beta_u X + \epsilon …</div><script type='text/javascript'>if (
 <li>その他についてはPython &gt;&gt; R言語</li>
 <li>Jupyter notebook で PythonとRを組み合わせて使うスタイルがおすすめ</li>
 </ul>
-<table class="table-hover table table-striped">
+<table class="table-hover table-striped table">
 <thead>
 <tr>
 <th></th>
@@ -220,7 +227,12 @@ Y = \alpha_u + \beta_u X + \epsilon …</div><script type='text/javascript'>if (
 <tr>
 <td>統計</td>
 <td>いろいろ</td>
-<td>scipy.stats, statsmodels …</td></tr></tbody></table>
+<td>scipy.stats, statsmodels</td>
+</tr>
+<tr>
+<td>グラフ</td>
+<td>ggplot2</td>
+<td>seaborn, plotnine(ggplot-like …</td></tr></tbody></table>
                     <a class="btn btn-default btn-xs" href="/detafen-xi-huan-jing-rpython.html">more ...</a>
                 </div>
             </article>
