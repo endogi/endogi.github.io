@@ -27,7 +27,6 @@
 
     <link href="/theme/css/pygments/native.css" rel="stylesheet">
     <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/theme/css/shariff/shariff.min.css" rel="stylesheet">
 
 
 
@@ -70,7 +69,20 @@ endogi.info            </a>
         <div class="col-sm-9">
             <article>
                 <h2><a href="/cao-zuo-bian-shu-fa.html">操作変数法</a></h2>
-                <div class="summary"><h1>通常の多変量解析による因果推論</h1>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-10-31T00:00:00+09:00"> Wed 31 October 2018</time>
+    </span>
+
+
+
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><h2>線形回帰分析による因果推論</h2>
 <p><img alt="XYC digraph" class="img-responsive" src="images/dag_XYC.svg"/></p>
 <p>上記のモデルを考える。
 ここで、YとXの関係の真のモデルは、Cがすべて既知であれば</p>
@@ -80,19 +92,7 @@ $$</div>
 <p>ここで、εは誤差、α、β、γは回帰係数。βがYに対するXの影響を示す求めたい回帰係数となる。
 しかし交絡Cが入手できない状況では、Cを除いた単純な回帰を行うとバイアスがかかってしまう</p>
 <div class="math">$$
-Y = \alpha_u + \beta_u X + \epsilon
-$$</div>
-<p>
-この単回帰の係数<span class="math">\(\beta_u\)</span>は公式から
-</p>
-<div class="math">$$
-\beta_u = \frac{Cov(X,Y)}{Var(X)}
-$$</div>
-<p>
-となるが、このYに真のモデルを代入すると</p>
-<div class="math">\begin{eqnarray*}
-\beta_u &amp;=&amp;  \frac{Cov(X,Y)}{Var(X)} \\
- &amp;=&amp; \frac{Cov(X, \alpha …</div><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+Y = \alpha_u + \beta_u X + \epsilon …</div><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
         linebreak = "false";
@@ -150,37 +150,54 @@ $$</div>
                     <a class="btn btn-default btn-xs" href="/cao-zuo-bian-shu-fa.html">more ...</a>
                 </div>
             </article>
-            <hr/>
+            <hr style='padding-bottom:5em;' />
             <article>
                 <h2><a href="/jupyterdegraphvizwoshi-tsutagurahunobiao-shi.html">Jupyterでgraphvizを使ったグラフの表示</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-10-31T00:00:00+09:00"> Wed 31 October 2018</time>
+    </span>
+
+
+
+
+
+    
+</footer><!-- /.post-info -->                    </div>
                 <div class="summary"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">graphviz</span> <span class="kn">as</span> <span class="nn">gv</span>
 <span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
 
 <span class="k">def</span> <span class="nf">view_dot</span><span class="p">(</span><span class="n">dot_text</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">dname</span><span class="p">:</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dname</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">)</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">gv</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_text</span><span class="p">,</span><span class="n">format</span><span class="o">=</span><span class="s1">'png'</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Image</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="s1">'rb'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-</pre></div>
-<p>例:</p>
-<div class="highlight"><pre><span></span><span class="n">view_dot</span><span class="p">(</span><span class="s1">'''</span>
-<span class="s1">digraph {</span>
-<span class="s1">layout=neato;</span>
-
-<span class="s1">X [label="X(exposure)"; pos …</span></pre></div>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dname …</span></pre></div>
                     <a class="btn btn-default btn-xs" href="/jupyterdegraphvizwoshi-tsutagurahunobiao-shi.html">more ...</a>
                 </div>
             </article>
-            <hr/>
+            <hr style='padding-bottom:5em;' />
             <article>
                 <h2><a href="/detafen-xi-huan-jing-rpython.html">データ分析環境  R+python</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-10-26T00:00:00+09:00"> Fri 26 October 2018</time>
+    </span>
+
+
+
+
+
+    
+</footer><!-- /.post-info -->                    </div>
                 <div class="summary"><ul>
 <li>統計解析については R &gt;&gt; Python</li>
 <li>その他についてはPython &gt;&gt; R言語</li>
 <li>Jupyter notebook で PythonとRを組み合わせて使うスタイルがおすすめ</li>
 </ul>
-<table class="table-striped table-hover table">
+<table class="table-hover table table-striped">
 <thead>
 <tr>
 <th></th>
@@ -202,33 +219,11 @@ $$</div>
 <tr>
 <td>統計</td>
 <td>いろいろ</td>
-<td>scipy.stats, statsmodels</td>
-</tr>
-<tr>
-<td>グラフ</td>
-<td>ggplot2</td>
-<td>seaborn, plotnine(ggplot-like)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Rの特徴</strong></p>
-<ul>
-<li>tidyverse(dplyr, ggplot)の使い勝手がよい</li>
-<li>統計パッケージは充実しておりドキュメント,本も豊富</li>
-<li>それ以外の言語機能、パッケージについてはpythonより数段おちる？特に文字列処理など？</li>
-<li>そもそもR言語の設計いまいち感を感じる。</li>
-</ul>
-<p><strong>Pythonの特徴</strong></p>
-<ul>
-<li>文字列処理しやすい. 前処理に向いている.</li>
-<li>グラフライブラリ seabornが有名だけど、ggplotと比較するとかなり使い方に癖がある.</li>
-<li>通常の統計解析はRより数段おとる</li>
-</ul>
-<h2>Jupyter notebook環境構築 …</h2>
+<td>scipy.stats, statsmodels …</td></tr></tbody></table>
                     <a class="btn btn-default btn-xs" href="/detafen-xi-huan-jing-rpython.html">more ...</a>
                 </div>
             </article>
-            <hr/>
+            <hr style='padding-bottom:5em;' />
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -284,6 +279,18 @@ $$</div>
   </ul>
 </li>
 <!-- End Sidebar/Links -->
+
+<!-- Sidebar/Archive -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
+  <ul class="list-group" id="archive">
+        <li class="list-group-item">
+          <a href="/posts/2018/Oct/index.html"><i class="fa fa-calendar fa-lg"></i>October 2018 (3)
+          </a>
+        </li>
+  </ul>
+</li>
+<!-- End Sidebar/Archive -->
   </ul>
 </section>
 <!-- End Sidebar -->            </aside>
@@ -316,7 +323,7 @@ $$</div>
     <!-- Disqus -->
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'endogi_info'; // required: replace example with your forum shortname
+        var disqus_shortname = 'endogi-info'; // required: replace example with your forum shortname
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function () {
