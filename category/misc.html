@@ -1,42 +1,160 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-        <meta charset="utf-8" />
-        <title>endogi.info - misc</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+    <title>misc - endogi.info</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+
+
+
+    <meta name="author" content="endogi" />
+    <meta name="keywords" content="misc" />
+
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="endogi.info" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="endogi.info"/>
+        <meta property="og:url" content=""/>
+        <meta property="og:description" content="endogi.info"/>
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
 </head>
+<body>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">endogi.info </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="/category/misc.html">misc</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+endogi.info            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/detafen-xi-huan-jing-rpython.html">データ分析環境  R+python</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2018-10-31T00:00:00+09:00">
-                Published: Wed 31 October 2018
-        </abbr>
+<!-- Banner -->
+<!-- End Banner -->
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/endogi.html">endogi</a>
-        </address>
-<p>In <a href="/category/misc.html">misc</a>.</p>
+<!-- Content Container -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <article>
+                <h2><a href="/cao-zuo-bian-shu-fa.html">操作変数法</a></h2>
+                <div class="summary"><h1>通常の多変量解析による因果推論</h1>
+<div class="highlight"><pre><span></span><span class="n">view_dot</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">digraph {</span>
+<span class="s1">layout=neato;</span>
 
-</footer><!-- /.post-info --><ul>
+<span class="s1">X [label="X(exposure)"; pos="1,0!"];</span>
+<span class="s1">Y [label="Y(outcome)"; pos="4,0!"];</span>
+<span class="s1">U [label="C(confounding)"; pos="2.5,1.5!"];</span>
+<span class="s1">X -&gt; Y;</span>
+<span class="s1">U -&gt;X;</span>
+<span class="s1">U -&gt;Y;</span>
+<span class="s1">}</span>
+<span class="s1">'''</span><span class="p">)</span>
+</pre></div>
+<p>[f:id:endogi:20181029231635p:plain]</p>
+<p>上記のモデルを考える。
+ここで、YとXの関係の真のモデルは、Cがすべて既知であれば</p>
+<div class="math">$$
+Y = \alpha + \beta X + \gamma C + \epsilon …</div><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+                    <a class="btn btn-default btn-xs" href="/cao-zuo-bian-shu-fa.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="/detafen-xi-huan-jing-rpython.html">データ分析環境  R+python</a></h2>
+                <div class="summary"><ul>
 <li>統計解析については R &gt;&gt; Python</li>
 <li>その他についてはPython &gt;&gt; R言語</li>
 <li>Jupyter notebook で PythonとRを組み合わせて使うスタイルがおすすめ</li>
 </ul>
-<table>
+<table class="table table-striped table-hover">
 <thead>
 <tr>
 <th></th>
@@ -80,138 +198,77 @@
 <li>グラフライブラリ seabornが有名だけど、ggplotと比較するとかなり使い方に癖がある.</li>
 <li>通常の統計解析はRより数段おとる</li>
 </ul>
-<h2>Jupyter notebook環境構築</h2>
-<p>手元の環境が汚れるのがいやなので、Dockerを使っている.</p>
-<p><a href="https://github.com/jupyter/docker-stacks/">https://github.com/jupyter/docker-stacks/</a> をベースに必要なパッケージを追加している</p>
-<p>official/Dockerfile</p>
-<div class="highlight"><pre><span></span>FROM jupyter/datascience-notebook
+<h2>Jupyter notebook環境構築 …</h2>
+                    <a class="btn btn-default btn-xs" href="/detafen-xi-huan-jing-rpython.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
 
-USER root
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
 
-# .ipython/profile_default/startup/01-startup.ipy でデフォルトでロードされるモジュールを定義
-ADD 01-startup.ipy /home/jovyan/.ipython/profile_default/startup/
-RUN chown jovyan:users -R /home/jovyan/.ipython
-
-RUN apt-get update &amp;&amp; \
-    apt-get install -y --no-install-recommends \
-         fonts-ipafont graphviz libgraphviz-dev graphviz-dev pkg-config -y --no-install-recommends &amp;&amp; \
-    rm -rf /var/lib/apt/lists/*
-
-RUN pip install --upgrade pip
-
-USER $NB_UID
-
-# Jupyter notebook extensions &lt;https://github.com/ipython-contrib/jupyter_contrib_nbextensions&gt; の設定
-RUN pip install jupyter_contrib_nbextensions
-RUN jupyter contrib nbextension install --user
-
-RUN pip install tensorflow==1.10.0 numpy==1.14.5 pandas
-RUN pip install openpyxl pymc3 plotnine pyarrow opencv-python keras plydata networkx --upgrade
-RUN pip install sympy
-RUN pip install scikit-misc graphviz
-RUN pip install redis
-RUN pip install xlsxwriter
-RUN pip install flask flask-wtf flask-bootstrap
-
-# fontList.jsonを消しておくと、フォント変更後にmatplotlib.font_manager._rebuild() する必要がない。&lt;https://qiita.com/yniji/items/3fac25c2ffa316990d0c&gt;
-RUN rm .cache/matplotlib/fontList.json
-
-RUN jupyter nbextension enable tox2/main
-RUN jupyter nbextension enable nbextensions_configurator/tree_tab/main
-</pre></div>
-
-
-<p>.ipython/profile_default/startup/01-startup.ipy</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="kn">as</span> <span class="nn">stats</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pylab</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="kn">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
-<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="kn">import</span> <span class="n">r</span> <span class="k">as</span> <span class="n">R</span>
-<span class="o">%</span><span class="n">load_ext</span> <span class="n">rpy2</span><span class="o">.</span><span class="n">ipython</span>
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-</pre></div>
-
-
-<p>docker-compose.yml</p>
-<div class="highlight"><pre><span></span>version: &#39;2.3&#39;
-services:
-  official:
-    restart: always
-    build: official/.
-    container_name: myjupyter
-    ports:
-       - &quot;8888:8888&quot;
-       - &quot;5000:5000&quot;
-    volumes:
-       - ~/projects/myjupyter:/home/jovyan/myjupyter
-       - ~/.keras:/home/jovyan/.keras
-    command: &quot;start-notebook.sh --NotebookApp.token=&#39;&#39;&quot;
-    links:
-      - redis
-
-  redis:
-    restart: always
-    image: redis
-    volumes:
-      - ~/tmp/redis:/data
-    command: redis-server --appendonly yes
-</pre></div>
-
-
-<p>一時ファイルのキャッシュとしてredisを使うのでdocker-composeで一括管理している</p>
-<h2>データ解析の基本的な流れ</h2>
-<ul>
-<li>pythonで<ul>
-<li>excel, csvのロードと匿名化</li>
-<li>前処置</li>
-<li>適宜、DataFrameはpickleしlocalのredisにセーブしておく</li>
-</ul>
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="http://twitter.com/endogi"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+  </ul>
 </li>
-<li>jupyter notebookで<ul>
-<li>rpy2をつかってRとpythonで相互にデータやりとりできる</li>
-<li>データ整形、集計 (pandas, dplyr)</li>
-<li>グラフ(plotnine, ggplot2)</li>
-<li>統計解析</li>
-</ul>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://python.org/" target="_blank">Python.org</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a>
+    </li>
+    <li class="list-group-item">
+      <a href="#" target="_blank">You can modify those links in your config file</a>
+    </li>
+  </ul>
 </li>
-</ul>
-<h2>Rpy2</h2>
-<p>RをIPython Notebookから使う<a href="https://oku.edu.mie-u.ac.jp/~okumura/stat/ipynb.html">https://oku.edu.mie-u.ac.jp/~okumura/stat/ipynb.html</a></p>
-<p>Jupyterで1つのノートブック内にRとPythonを共存させる <a href="https://qiita.com/tanakarian/items/609b550c4b18e5a4b925">https://qiita.com/tanakarian/items/609b550c4b18e5a4b925</a></p>
-<p>上記とおり、"%R -i", "%R -o", "%%R" だけで相互にデータやりとりできる</p>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2018 endogi
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+
 
 </body>
 </html>

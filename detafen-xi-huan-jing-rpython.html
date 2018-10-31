@@ -1,47 +1,109 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-        <meta charset="utf-8" />
-        <title>データ分析環境 R+python</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+    <title>データ分析環境 R+python - endogi.info</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+
+
+<link rel="canonical" href="/detafen-xi-huan-jing-rpython.html">
+
+        <meta name="author" content="endogi" />
+        <meta name="description" content="統計解析については R &gt;&gt; Python その他についてはPython &gt;&gt; R言語 Jupyter notebook で PythonとRを組み合わせて使うスタイルがおすすめ R Python 環境 RStudio, jupyter jupyter, etc データ整形 dplyr(tidyverse) pandas 統計 いろいろ scipy.stats, statsmodels グラフ ggplot2 seaborn, plotnine(ggplot-like) Rの特徴 tidyverse(dplyr, ggplot)の使い勝手がよい 統計パッケージは充実しておりドキュメント,本も豊富 それ以外の言語機能、パッケージについてはpythonより数段おちる？特に文字列処理など？ そもそもR言語の設計いまいち感を感じる。 Pythonの特徴 文字列処理しやすい. 前処理に向いている. グラフライブラリ seabornが有名だけど、ggplotと比較するとかなり使い方に癖がある. 通常の統計解析はRより数段おとる Jupyter notebook環境構築 …" />
+
+        <meta property="og:site_name" content="endogi.info" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="データ分析環境 R+python"/>
+        <meta property="og:url" content="/detafen-xi-huan-jing-rpython.html"/>
+        <meta property="og:description" content="統計解析については R &gt;&gt; Python その他についてはPython &gt;&gt; R言語 Jupyter notebook で PythonとRを組み合わせて使うスタイルがおすすめ R Python 環境 RStudio, jupyter jupyter, etc データ整形 dplyr(tidyverse) pandas 統計 いろいろ scipy.stats, statsmodels グラフ ggplot2 seaborn, plotnine(ggplot-like) Rの特徴 tidyverse(dplyr, ggplot)の使い勝手がよい 統計パッケージは充実しておりドキュメント,本も豊富 それ以外の言語機能、パッケージについてはpythonより数段おちる？特に文字列処理など？ そもそもR言語の設計いまいち感を感じる。 Pythonの特徴 文字列処理しやすい. 前処理に向いている. グラフライブラリ seabornが有名だけど、ggplotと比較するとかなり使い方に癖がある. 通常の統計解析はRより数段おとる Jupyter notebook環境構築 …"/>
+        <meta property="article:published_time" content="2018-10-31" />
+            <meta property="article:section" content="misc" />
+            <meta property="article:author" content="endogi" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
 </head>
+<body>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">endogi.info </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="/category/misc.html">misc</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/detafen-xi-huan-jing-rpython.html" rel="bookmark"
-           title="Permalink to データ分析環境 R+python">データ分析環境  R+python</a></h1>
-    </header>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+endogi.info            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
 
-    <div class="entry-content">
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/detafen-xi-huan-jing-rpython.html"
+                       rel="bookmark"
+                       title="Permalink to データ分析環境 R+python">
+                        データ分析環境  R+python
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                  <div class="panel-body">
 <footer class="post-info">
-        <abbr class="published" title="2018-10-31T00:00:00+09:00">
-                Published: Wed 31 October 2018
-        </abbr>
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-10-31T00:00:00+09:00"> Wed 31 October 2018</time>
+    </span>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/endogi.html">endogi</a>
-        </address>
-<p>In <a href="/category/misc.html">misc</a>.</p>
 
-</footer><!-- /.post-info -->      <ul>
+
+
+
+    
+</footer><!-- /.post-info -->                  </div>
+                </div>
+                <ul>
 <li>統計解析については R &gt;&gt; Python</li>
 <li>その他についてはPython &gt;&gt; R言語</li>
 <li>Jupyter notebook で PythonとRを組み合わせて使うスタイルがおすすめ</li>
 </ul>
-<table>
+<table class="table table-striped table-hover">
 <thead>
 <tr>
 <th></th>
@@ -124,8 +186,6 @@ RUN rm .cache/matplotlib/fontList.json
 RUN jupyter nbextension enable tox2/main
 RUN jupyter nbextension enable nbextensions_configurator/tree_tab/main
 </pre></div>
-
-
 <p>.ipython/profile_default/startup/01-startup.ipy</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -140,22 +200,20 @@ RUN jupyter nbextension enable nbextensions_configurator/tree_tab/main
 <span class="o">%</span><span class="n">load_ext</span> <span class="n">rpy2</span><span class="o">.</span><span class="n">ipython</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
-
-
 <p>docker-compose.yml</p>
-<div class="highlight"><pre><span></span>version: &#39;2.3&#39;
+<div class="highlight"><pre><span></span>version: '2.3'
 services:
   official:
     restart: always
     build: official/.
     container_name: myjupyter
     ports:
-       - &quot;8888:8888&quot;
-       - &quot;5000:5000&quot;
+       - "8888:8888"
+       - "5000:5000"
     volumes:
        - ~/projects/myjupyter:/home/jovyan/myjupyter
        - ~/.keras:/home/jovyan/.keras
-    command: &quot;start-notebook.sh --NotebookApp.token=&#39;&#39;&quot;
+    command: "start-notebook.sh --NotebookApp.token=''"
     links:
       - redis
 
@@ -166,8 +224,6 @@ services:
       - ~/tmp/redis:/data
     command: redis-server --appendonly yes
 </pre></div>
-
-
 <p>一時ファイルのキャッシュとしてredisを使うのでdocker-composeで一括管理している</p>
 <h2>データ解析の基本的な流れ</h2>
 <ul>
@@ -189,37 +245,84 @@ services:
 <p>RをIPython Notebookから使う<a href="https://oku.edu.mie-u.ac.jp/~okumura/stat/ipynb.html">https://oku.edu.mie-u.ac.jp/~okumura/stat/ipynb.html</a></p>
 <p>Jupyterで1つのノートブック内にRとPythonを共存させる <a href="https://qiita.com/tanakarian/items/609b550c4b18e5a4b925">https://qiita.com/tanakarian/items/609b550c4b18e5a4b925</a></p>
 <p>上記とおり、"%R -i", "%R -o", "%%R" だけで相互にデータやりとりできる</p>
-    </div><!-- /.entry-content -->
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
 
-  </article>
+    <ul class="pager">
+      <li class="next">
+        <a href="/cao-zuo-bian-shu-fa.html">
+          操作変数法 &rarr;
+        </a>
+      </li>
+    </ul>
+    
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="http://twitter.com/endogi"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://python.org/" target="_blank">Python.org</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a>
+    </li>
+    <li class="list-group-item">
+      <a href="#" target="_blank">You can modify those links in your config file</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
 </section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2018 endogi
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+
 
 </body>
 </html>

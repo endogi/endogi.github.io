@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>操作変数法 - endogi.info</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/cao-zuo-bian-shu-fa.html">
+
+        <meta name="author" content="endogi" />
+        <meta name="description" content="通常の多変量解析による因果推論 view_dot(&#39;&#39;&#39; digraph { layout=neato; X [label=&#34;X(exposure)&#34;; pos=&#34;1,0!&#34;]; Y [label=&#34;Y(outcome)&#34;; pos=&#34;4,0!&#34;]; U [label=&#34;C(confounding)&#34;; pos=&#34;2.5,1.5!&#34;]; X -&gt; Y; U -&gt;X; U -&gt;Y; } &#39;&#39;&#39;) [f:id:endogi:20181029231635p:plain] 上記のモデルを考える。 ここで、YとXの関係の真のモデルは、Cがすべて既知であれば $$ Y = \alpha + \beta X + \gamma C + \epsilon …if (!document.getElementById(&#39;mathjaxscript_pelican_#%@#$@#&#39;)) { var align = &#34;center&#34;, indent = &#34;0em&#34;, linebreak = &#34;false&#34;; if (false) { align = (screen.width" />
+
+        <meta property="og:site_name" content="endogi.info" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="操作変数法"/>
+        <meta property="og:url" content="/cao-zuo-bian-shu-fa.html"/>
+        <meta property="og:description" content="通常の多変量解析による因果推論 view_dot(&#39;&#39;&#39; digraph { layout=neato; X [label=&#34;X(exposure)&#34;; pos=&#34;1,0!&#34;]; Y [label=&#34;Y(outcome)&#34;; pos=&#34;4,0!&#34;]; U [label=&#34;C(confounding)&#34;; pos=&#34;2.5,1.5!&#34;]; X -&gt; Y; U -&gt;X; U -&gt;Y; } &#39;&#39;&#39;) [f:id:endogi:20181029231635p:plain] 上記のモデルを考える。 ここで、YとXの関係の真のモデルは、Cがすべて既知であれば $$ Y = \alpha + \beta X + \gamma C + \epsilon …if (!document.getElementById(&#39;mathjaxscript_pelican_#%@#$@#&#39;)) { var align = &#34;center&#34;, indent = &#34;0em&#34;, linebreak = &#34;false&#34;; if (false) { align = (screen.width"/>
+        <meta property="article:published_time" content="2018-10-31" />
+            <meta property="article:section" content="misc" />
+            <meta property="article:author" content="endogi" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+endogi.info            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/cao-zuo-bian-shu-fa.html"
+                       rel="bookmark"
+                       title="Permalink to 操作変数法">
+                        操作変数法
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                  <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-10-31T00:00:00+09:00"> Wed 31 October 2018</time>
+    </span>
+
+
+
+
+
+    
+</footer><!-- /.post-info -->                  </div>
+                </div>
+                <h1>通常の多変量解析による因果推論</h1>
+<div class="highlight"><pre><span></span><span class="n">view_dot</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">digraph {</span>
+<span class="s1">layout=neato;</span>
+
+<span class="s1">X [label="X(exposure)"; pos="1,0!"];</span>
+<span class="s1">Y [label="Y(outcome)"; pos="4,0!"];</span>
+<span class="s1">U [label="C(confounding)"; pos="2.5,1.5!"];</span>
+<span class="s1">X -&gt; Y;</span>
+<span class="s1">U -&gt;X;</span>
+<span class="s1">U -&gt;Y;</span>
+<span class="s1">}</span>
+<span class="s1">'''</span><span class="p">)</span>
+</pre></div>
+<p>[f:id:endogi:20181029231635p:plain]</p>
+<p>上記のモデルを考える。
+ここで、YとXの関係の真のモデルは、Cがすべて既知であれば</p>
+<div class="math">$$
+Y = \alpha + \beta X + \gamma C + \epsilon
+$$</div>
+<p>ここで、εは誤差、α、β、γは回帰係数。βがYに対するXの影響を示す求めたい回帰係数となる。
+しかし交絡Cが入手できない状況では、Cを除いた単純な回帰を行うとバイアスがかかってしまう</p>
+<div class="math">$$
+Y = \alpha_u + \beta_u X + \epsilon
+$$</div>
+<p>
+この単回帰の係数<span class="math">\(\beta_u\)</span>は公式から
+</p>
+<div class="math">$$
+\beta_u = \frac{Cov(X,Y)}{Var(X)}
+$$</div>
+<p>
+となるが、このYに真のモデルを代入すると</p>
+<div class="highlight"><pre><span></span>\begin{eqnarray*}
+\beta_u &amp;=&amp;  \frac{Cov(X,Y)}{Var(X)} \\
+ &amp;=&amp; \frac{Cov(X, \alpha + \beta X + \gamma C + \epsilon)}{Var(X)} \\
+ &amp;=&amp; \frac{Cov(X,\beta X) + Cov(\alpha + \gamma C + \epsilon)}{Var(X)} \\
+ &amp;=&amp; \beta + \gamma \frac{Cov(C,X)}{Var(X)} 
+\end{eqnarray*}
+</pre></div>
+<p>つまり、単回帰係数で得られた<span class="math">\(\beta_u\)</span>は真の値βから$\gamma \frac{Cov(C,X)}{Var(X)} $だけずれてしまう。
+これは、すべての交絡を調節しなければ真の因果関係は推定できないことを意味している。
+RCTなどの実験では、Xへの割り付けをランダムに行うことで、XとCの関係を断ち切る方法である。つまり、上の式でCov(C,X)=0となるため、単回帰によるβと真のβが一致する。</p>
+<h1>操作変数法</h1>
+<div class="highlight"><pre><span></span><span class="n">view_dot</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">digraph {</span>
+<span class="s1">layout=neato;</span>
+
+<span class="s1">X [label="X(exposure)"; pos="1,0!"];</span>
+<span class="s1">Y [label="Y(outcome)"; pos="4,0!"];</span>
+<span class="s1">U [label="C(confounding)"; pos="2.5,1.5!"];</span>
+<span class="s1">#C [label="C(measured confounding)"; pos="1,2!"];</span>
+<span class="s1">Z [lable="Z(instrumental variable)"; pos="0,1!"]</span>
+<span class="s1">Z -&gt; X;</span>
+<span class="s1">X -&gt; Y;</span>
+<span class="s1">U -&gt;X;</span>
+<span class="s1">U -&gt;Y;</span>
+<span class="s1">}</span>
+<span class="s1">'''</span><span class="p">)</span>
+</pre></div>
+<p>[f:id:endogi:20181029231639p:plain]</p>
+<p>操作変数法はある変数Zを用いて、測定不可能な交絡因子があっても正しく因果推論ができる方法である。</p>
+<ol>
+<li>ZとXに強い相関がある。（ZによりXが決まる）</li>
+<li>ZはXを介してのみ、Yへ影響を与える</li>
+</ol>
+<p>天下り的だが、操作変数Zを用いると、二段階最小二乗法とよばれる方法で正しいβを推定できる</p>
+<ol>
+<li><span class="math">\(X = \eta + \delta Z + \epsilon\)</span> の回帰を用いて、ηとδを推定する</li>
+<li>1.で推定されたXをつかって、<span class="math">\(Y = \alpha_i + \beta_i X + \epsilon\)</span> の回帰を行う</li>
+<li>すると、<span class="math">\(\beta_i\)</span>は真のβと一致する。</li>
+</ol>
+<h2>簡単な説明</h2>
+<p>第一段階の回帰で
+</p>
+<div class="math">$$
+\delta = \frac{Cov(Z,X)}{Var(Z)}
+$$</div>
+<p>
+第二段階の回帰式に、<span class="math">\(X = \eta + \delta Z\)</span>を代入する
+</p>
+<div class="math">\begin{eqnarray*}
+Y &amp;=&amp; \alpha_i + \beta_i X + \epsilon \\
+  &amp;=&amp; \alpha_i + \beta_i (\eta + \delta Z) + \epsilon \\
+  &amp;=&amp; \alpha_i + \beta_i \eta + \beta_i\delta Z + \epsilon' \\
+\end{eqnarray*}</div>
+<p>
+ここで公式から
+</p>
+<div class="math">\begin{eqnarray*}
+\beta_i\delta &amp;=&amp; \frac{Cov(Z,Y)}{Var(Z)} \\
+\Leftrightarrow \beta_i &amp;=&amp; \frac{Cov(Z,Y)}{Cov(Z,X)}
+\end{eqnarray*}</div>
+<p>
+ここで、βとβiの関係を知るため、Yに真のモデル<span class="math">\(Y = \alpha + \beta X + \gamma C + \epsilon\)</span>を代入すると</p>
+<div class="math">\begin{eqnarray*}
+\beta_i &amp;=&amp; \frac{Cov(Z,Y)}{Cov(Z,X)} \\
+        &amp;=&amp; \frac{ Cov(Z, \alpha + \beta X + \gamma C + \epsilon) }{Cov(Z,X)}\\
+        &amp;=&amp; \frac{ Cov(Z, \beta X) }{Cov(Z,X)}\\
+        &amp;=&amp; \beta        
+\end{eqnarray*}</div>
+<p>ここで、ZとCが独立であること(Cov(Z,C)=0)を使った。</p>
+<h2>二段階回帰の意味について</h2>
+<p>直感的な理解は難しいが、このように理解する
+1. Zを動かすことで、Xを操作することが可能
+2. Zと交絡Cは相関がないという仮定なので、Zを動かすことによる交絡の影響は平均的に無視できる
+3. そのため、「Zに起因するXの値の変化」と「Y」の関係を調べることで、間接的にXがYに与える影響を調べることができる。</p>
+<h2>重回帰</h2>
+<p>上の方法は、二段階最小二乗法とよばれる方法で、X,Yの関係に他に測定可能な交絡因子がある場合でも同様に使用できる。
+この場合, 測定可能な交絡をC、測定不可能な交絡をUとして</p>
+<div class="math">$$
+X = \eta + \delta Z + \zeta C + \epsilon' \\
+Y = \alpha + \beta X + \xi C + \epsilon
+$$</div>
+<p>の二段階の回帰で同様にβを計算できる。</p>
+<h2>graphviz</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">graphviz</span> <span class="kn">as</span> <span class="nn">gv</span>
+<span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="k">def</span> <span class="nf">view_dot</span><span class="p">(</span><span class="n">dot_text</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">dname</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dname</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">gv</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_text</span><span class="p">,</span><span class="n">format</span><span class="o">=</span><span class="s1">'png'</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Image</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="s1">'rb'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+<h2>公式集</h2>
+<p>期待値
+</p>
+<div class="math">$$
+E(X) = \frac{1}{n}\Sigma^n_{i=1} X_i
+$$</div>
+<p>分散</p>
+<div class="math">\begin{eqnarray*}
+Var(X) &amp;=&amp; \frac{1}{n}\Sigma^{n}_{i=1}(X_i-E(X))^2 \\
+       &amp;=&amp; E(X^2)-E(X)^2
+\end{eqnarray*}</div>
+<p>共分散</p>
+<div class="math">\begin{eqnarray*}
+Cov(X,Y) &amp;=&amp; \frac{1}{n}\Sigma^{n}_{i=1} (X-E(X))(Y-E(Y)) \\
+ &amp;=&amp; E[(X-E(X))(Y-E(Y) ] \\
+ &amp;=&amp; E(XY) - E(X)E(Y)
+\end{eqnarray*}</div>
+<p>他
+</p>
+<div class="math">$$
+E(a+bX) = a + b E(X)
+$$</div>
+<div class="math">$$
+V(a+bX) = b^2V(X) \\
+V(X + Y) = V(X) + V(Y) + 2Cov(X,Y)
+$$</div>
+<div class="math">$$
+Cov(a+bX, Y) = b Cov(X,Y)
+$$</div>
+<p>単変量回帰（最小二乗法）について</p>
+<div class="math">$$ Y = \alpha + \beta X $$</div>
+<p>の回帰係数は</p>
+<div class="math">$$
+\alpha = E(Y) - \beta E(X)
+$$</div>
+<div class="math">$$
+\beta = \frac{Cov(X,Y)}{Var(X)}
+$$</div>
+<p>重回帰分析の最小二乗法の推定値は</p>
+<div class="math">$$　\mathbf{\beta} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T \mathbf{Y} $$</div>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+    <ul class="pager">
+      <li class="previous">
+        <a href="/detafen-xi-huan-jing-rpython.html">
+          &larr; データ分析環境  R+python
+        </a>
+      </li>
+    </ul>
+    
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="http://twitter.com/endogi"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://python.org/" target="_blank">Python.org</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a>
+    </li>
+    <li class="list-group-item">
+      <a href="#" target="_blank">You can modify those links in your config file</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2018 endogi
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+
+
+</body>
+</html>
