@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>操作変数法 - endogi.info</title>
+    <title>pandas set_index, reset_index - endogi.info</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -9,16 +9,16 @@
 
 
 
-<link rel="canonical" href="/cao-zuo-bian-shu-fa.html">
+<link rel="canonical" href="/pandas-set_index-reset_index.html">
 
         <meta name="author" content="endogi" />
-        <meta name="description" content="線形回帰分析による因果推論 上記のモデルを考える。 ここで、YとXの関係の真のモデルは、Cがすべて既知であれば $$ Y = \alpha + \beta X + \gamma C + \epsilon $$ ここで、εは誤差、α、β、γは回帰係数。βがYに対するXの影響を示す求めたい回帰係数となる。 しかし交絡Cが入手できない状況では、Cを除いた単純な回帰を行うとバイアスがかかってしまう $$ Y = \alpha_u + \beta_u X + \epsilon $$ この単回帰の係数\(\beta_u\)は公式から $$ \beta_u = \frac …if (!document.getElementById(&#39;mathjaxscript_pelican_#%@#$@#&#39;)) { var align = &#34;center&#34;, indent = &#34;0em&#34;, linebreak = &#34;false&#34;; if (false) { align = (screen.width" />
+        <meta name="description" content="set_index¶" />
 
         <meta property="og:site_name" content="endogi.info" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="操作変数法"/>
-        <meta property="og:url" content="/cao-zuo-bian-shu-fa.html"/>
-        <meta property="og:description" content="線形回帰分析による因果推論 上記のモデルを考える。 ここで、YとXの関係の真のモデルは、Cがすべて既知であれば $$ Y = \alpha + \beta X + \gamma C + \epsilon $$ ここで、εは誤差、α、β、γは回帰係数。βがYに対するXの影響を示す求めたい回帰係数となる。 しかし交絡Cが入手できない状況では、Cを除いた単純な回帰を行うとバイアスがかかってしまう $$ Y = \alpha_u + \beta_u X + \epsilon $$ この単回帰の係数\(\beta_u\)は公式から $$ \beta_u = \frac …if (!document.getElementById(&#39;mathjaxscript_pelican_#%@#$@#&#39;)) { var align = &#34;center&#34;, indent = &#34;0em&#34;, linebreak = &#34;false&#34;; if (false) { align = (screen.width"/>
+        <meta property="og:title" content="pandas set_index, reset_index"/>
+        <meta property="og:url" content="/pandas-set_index-reset_index.html"/>
+        <meta property="og:description" content="set_index¶"/>
         <meta property="article:published_time" content="2018-10-31" />
             <meta property="article:section" content="misc" />
             <meta property="article:author" content="endogi" />
@@ -76,10 +76,10 @@ endogi.info            </a>
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/cao-zuo-bian-shu-fa.html"
+                    <a href="/pandas-set_index-reset_index.html"
                        rel="bookmark"
-                       title="Permalink to 操作変数法">
-                        操作変数法
+                       title="Permalink to pandas set_index, reset_index">
+                        pandas set_index, reset_index
                     </a>
                 </h1>
             </header>
@@ -99,197 +99,290 @@ endogi.info            </a>
     
 </footer><!-- /.post-info -->                  </div>
                 </div>
-                <h2>線形回帰分析による因果推論</h2>
-<p><img alt="XYC digraph" class="img-responsive" src="images/dag_XYC.svg"/></p>
-<p>上記のモデルを考える。
-ここで、YとXの関係の真のモデルは、Cがすべて既知であれば</p>
-<div class="math">$$
-Y = \alpha + \beta X + \gamma C + \epsilon
-$$</div>
-<p>ここで、εは誤差、α、β、γは回帰係数。βがYに対するXの影響を示す求めたい回帰係数となる。
-しかし交絡Cが入手できない状況では、Cを除いた単純な回帰を行うとバイアスがかかってしまう</p>
-<div class="math">$$
-Y = \alpha_u + \beta_u X + \epsilon
-$$</div>
-<p>
-この単回帰の係数<span class="math">\(\beta_u\)</span>は公式から
-</p>
-<div class="math">$$
-\beta_u = \frac{Cov(X,Y)}{Var(X)}
-$$</div>
-<p>
-となるが、このYに真のモデルを代入すると</p>
-<div class="math">\begin{eqnarray*}
-\beta_u &amp;=&amp;  \frac{Cov(X,Y)}{Var(X)} \\
- &amp;=&amp; \frac{Cov(X, \alpha + \beta X + \gamma C + \epsilon)}{Var(X)} \\
- &amp;=&amp; \frac{Cov(X,\beta X) + Cov(\alpha + \gamma C + \epsilon)}{Var(X)} \\
- &amp;=&amp; \beta + \gamma \frac{Cov(C,X)}{Var(X)} 
-\end{eqnarray*}</div>
-<p>つまり、単回帰係数で得られた<span class="math">\(\beta_u\)</span>は真の値βから$\gamma \frac{Cov(C,X)}{Var(X)} $だけずれてしまう。
-これは、すべての交絡を調節しなければ真の因果関係は推定できないことを意味している。
-RCTなどの実験では、Xへの割り付けをランダムに行うことで、XとCの関係を断ち切る方法である。つまり、上の式でCov(C,X)=0となるため、単回帰によるβと真のβが一致する。</p>
-<h2>操作変数法</h2>
-<p><img alt="ZXYC digraph" class="img-responsive" src="images/dag_ZXYC.svg"/></p>
-<p>操作変数法はある変数Zを用いて、測定不可能な交絡因子があっても正しく因果推論ができる方法である。</p>
-<ol>
-<li>ZとXに強い相関がある。（ZによりXが決まる）</li>
-<li>ZはXを介してのみ、Yへ影響を与える</li>
-</ol>
-<p>天下り的だが、操作変数Zを用いると、二段階最小二乗法とよばれる方法で正しいβを推定できる</p>
-<ol>
-<li><span class="math">\(X = \eta + \delta Z + \epsilon\)</span> の回帰を用いて、ηとδを推定する</li>
-<li>1.で推定されたXをつかって、<span class="math">\(Y = \alpha_i + \beta_i X + \epsilon\)</span> の回帰を行う</li>
-<li>すると、<span class="math">\(\beta_i\)</span>は真のβと一致する。</li>
-</ol>
-<h3>簡単な説明</h3>
-<p>第一段階の回帰で
-</p>
-<div class="math">$$
-\delta = \frac{Cov(Z,X)}{Var(Z)}
-$$</div>
-<p>
-第二段階の回帰式に、<span class="math">\(X = \eta + \delta Z\)</span>を代入する
-</p>
-<div class="math">\begin{eqnarray*}
-Y &amp;=&amp; \alpha_i + \beta_i X + \epsilon \\
-  &amp;=&amp; \alpha_i + \beta_i (\eta + \delta Z) + \epsilon \\
-  &amp;=&amp; \alpha_i + \beta_i \eta + \beta_i\delta Z + \epsilon' \\
-\end{eqnarray*}</div>
-<p>
-ここで公式から
-</p>
-<div class="math">\begin{eqnarray*}
-\beta_i\delta &amp;=&amp; \frac{Cov(Z,Y)}{Var(Z)} \\
-\Leftrightarrow \beta_i &amp;=&amp; \frac{Cov(Z,Y)}{Cov(Z,X)}
-\end{eqnarray*}</div>
-<p>
-ここで、βとβiの関係を知るため、Yに真のモデル<span class="math">\(Y = \alpha + \beta X + \gamma C + \epsilon\)</span>を代入すると</p>
-<div class="math">\begin{eqnarray*}
-\beta_i &amp;=&amp; \frac{Cov(Z,Y)}{Cov(Z,X)} \\
-        &amp;=&amp; \frac{ Cov(Z, \alpha + \beta X + \gamma C + \epsilon) }{Cov(Z,X)}\\
-        &amp;=&amp; \frac{ Cov(Z, \beta X) }{Cov(Z,X)}\\
-        &amp;=&amp; \beta        
-\end{eqnarray*}</div>
-<p>ここで、ZとCが独立であること(Cov(Z,C)=0)を使った。</p>
-<h3>二段階回帰の意味について</h3>
-<p>直感的な理解は難しいが、このように理解する
-1. Zを動かすことで、Xを操作することが可能
-2. Zと交絡Cは相関がないという仮定なので、Zを動かすことによる交絡の影響は平均的に無視できる
-3. そのため、「Zに起因するXの値の変化」と「Y」の関係を調べることで、間接的にXがYに与える影響を調べることができる。</p>
-<h3>重回帰</h3>
-<p>上の方法は、二段階最小二乗法とよばれる方法で、X,Yの関係に他に測定可能な交絡因子がある場合でも同様に使用できる。
-この場合, 測定可能な交絡をC、測定不可能な交絡をUとして</p>
-<div class="math">$$
-X = \eta + \delta Z + \zeta C + \epsilon' \\
-Y = \alpha + \beta X + \xi C + \epsilon
-$$</div>
-<p>の二段階の回帰で同様にβを計算できる。</p>
-<h2>公式集</h2>
-<p>期待値
-</p>
-<div class="math">$$
-E(X) = \frac{1}{n}\Sigma^n_{i=1} X_i
-$$</div>
-<p>分散</p>
-<div class="math">\begin{eqnarray*}
-Var(X) &amp;=&amp; \frac{1}{n}\Sigma^{n}_{i=1}(X_i-E(X))^2 \\
-       &amp;=&amp; E(X^2)-E(X)^2
-\end{eqnarray*}</div>
-<p>共分散</p>
-<div class="math">\begin{eqnarray*}
-Cov(X,Y) &amp;=&amp; \frac{1}{n}\Sigma^{n}_{i=1} (X-E(X))(Y-E(Y)) \\
- &amp;=&amp; E[(X-E(X))(Y-E(Y) ] \\
- &amp;=&amp; E(XY) - E(X)E(Y)
-\end{eqnarray*}</div>
-<p>他
-</p>
-<div class="math">$$
-E(a+bX) = a + b E(X)
-$$</div>
-<div class="math">$$
-V(a+bX) = b^2V(X) \\
-V(X + Y) = V(X) + V(Y) + 2Cov(X,Y)
-$$</div>
-<div class="math">$$
-Cov(a+bX, Y) = b Cov(X,Y)
-$$</div>
-<p>単変量回帰（最小二乗法）について</p>
-<div class="math">$$ Y = \alpha + \beta X $$</div>
-<p>の回帰係数は</p>
-<div class="math">$$
-\alpha = E(Y) - \beta E(X)
-$$</div>
-<div class="math">$$
-\beta = \frac{Cov(X,Y)}{Var(X)}
-$$</div>
-<p>重回帰分析の最小二乗法の推定値は</p>
-<div class="math">$$　\mathbf{\beta} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T \mathbf{Y} $$</div>
-<h2>参考</h2>
-<ul>
-<li><a href="https://www.amazon.co.jp/Rによる実証分析-―回帰分析から因果分析へ―-星野匡郎/dp/427421947X/">Rによる実証分析</a></li>
-</ul>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
+                <body>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="set_index">set_index<a class="anchor-link" href="#set_index">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">'abcde'</span><span class="p">))</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">iroha</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">'イロハニホ'</span><span class="p">),</span><span class="n">sin</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)))</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[1]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
     }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="table-striped dataframe table table-hover">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>iroha</th>
+<th>sin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>a</th>
+<td>イ</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<th>b</th>
+<td>ロ</td>
+<td>0.841471</td>
+</tr>
+<tr>
+<th>c</th>
+<td>ハ</td>
+<td>0.909297</td>
+</tr>
+<tr>
+<th>d</th>
+<td>ニ</td>
+<td>0.141120</td>
+</tr>
+<tr>
+<th>e</th>
+<td>ホ</td>
+<td>-0.756802</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[2]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="table-striped dataframe table table-hover">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>index</th>
+<th>iroha</th>
+<th>sin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>a</td>
+<td>イ</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<th>1</th>
+<td>b</td>
+<td>ロ</td>
+<td>0.841471</td>
+</tr>
+<tr>
+<th>2</th>
+<td>c</td>
+<td>ハ</td>
+<td>0.909297</td>
+</tr>
+<tr>
+<th>3</th>
+<td>d</td>
+<td>ニ</td>
+<td>0.141120</td>
+</tr>
+<tr>
+<th>4</th>
+<td>e</td>
+<td>ホ</td>
+<td>-0.756802</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'index'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[3]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="table-striped dataframe table table-hover">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>iroha</th>
+<th>sin</th>
+</tr>
+<tr>
+<th>index</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>a</th>
+<td>イ</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<th>b</th>
+<td>ロ</td>
+<td>0.841471</td>
+</tr>
+<tr>
+<th>c</th>
+<td>ハ</td>
+<td>0.909297</td>
+</tr>
+<tr>
+<th>d</th>
+<td>ニ</td>
+<td>0.141120</td>
+</tr>
+<tr>
+<th>e</th>
+<td>ホ</td>
+<td>-0.756802</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="reset_index">reset_index<a class="anchor-link" href="#reset_index">¶</a></h2>
+</div>
+</div>
+</div>
+</body>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
         "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
         "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
         "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
         "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
         "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        inlineMath: [ ['$','$'] ], " +
         "        displayMath: [ ['$$','$$'] ]," +
         "        processEscapes: true," +
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
+
             </div>
             
             <!-- /.entry-content -->
             <ul class="pager">
               <li class="previous">
+                <a href="/plotnine-example.html">
+                  &larr; plotnine example
+                </a>
+              </li>
+              <li class="next">
                 <a href="/jupyterdegraphvizwoshi-tsutagurahunobiao-shi.html">
-                  &larr; Jupyterでgraphvizを使ったグラフの表示
+                  Jupyterでgraphvizを使ったグラフの表示 &rarr;
                 </a>
               </li>
             </ul>
@@ -306,7 +399,7 @@ $$</div>
             var disqus_config = function () {
                 this.language = "ja";
 
-                        this.page.identifier = '2018-10-31-cao-zuo-bian-shu-fa';
+                        this.page.identifier = '2018-10-31-pandas-set_index-reset_index';
             };
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
